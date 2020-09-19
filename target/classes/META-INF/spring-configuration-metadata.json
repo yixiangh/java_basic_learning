@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "local",
+      "type": "com.example.controller.ComponentProperties",
+      "sourceType": "com.example.controller.ComponentProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "local.host",
+      "type": "java.lang.String",
+      "sourceType": "com.example.controller.ComponentProperties"
+    },
+    {
+      "name": "local.port",
+      "type": "java.lang.String",
+      "sourceType": "com.example.controller.ComponentProperties"
+    }
+  ],
+  "hints": []
+}
