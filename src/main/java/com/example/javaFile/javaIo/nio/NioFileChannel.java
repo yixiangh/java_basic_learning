@@ -1,4 +1,4 @@
-package com.example.javaIo.nio;
+package com.example.javaFile.javaIo.nio;
 
 import java.io.*;
 import java.nio.ByteBuffer;

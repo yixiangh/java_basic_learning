@@ -1,4 +1,4 @@
-package com.example.javaIo;
+package com.example.javaFile.javaIo;
 
 import java.io.*;
 
@@ -7,6 +7,7 @@ import java.io.*;
  * 流按照方向不同分为：输入流/输出流
  * 流按照处理数据单位不同分为：字符流/字节流
  * 流按照功能不同分为：节点流/处理流
+ *
  */
 public class JavaIO {
 

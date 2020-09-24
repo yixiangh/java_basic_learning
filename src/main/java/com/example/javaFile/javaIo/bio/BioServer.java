@@ -1,4 +1,4 @@
-package com.example.javaIo.bio;
+package com.example.javaFile.javaIo.bio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

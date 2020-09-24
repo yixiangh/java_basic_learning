@@ -1,4 +1,4 @@
-package com.example.file;
+package com.example.javaFile.file;
 
 import com.jcraft.jsch.*;
 
