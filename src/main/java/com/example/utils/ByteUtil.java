@@ -17,6 +17,13 @@ public class ByteUtil {
 
     private final static char[] digits = {'0', '1'};
 
+    public static void main(String[] args) {
+        byte str = 'a';
+        System.out.println(str & 0xFF);
+        String s = Integer.toHexString(str & 0xFF);
+        System.out.println(s);
+    }
+
     /**
      * 切割字节数组
      * @param bytes
