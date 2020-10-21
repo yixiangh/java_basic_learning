@@ -1,20 +1,12 @@
 package com.example.controller;
 
 import com.example.entity.Student;
+import io.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(value = "test1")
@@ -30,13 +22,26 @@ public class Test {
     }
 
 
-    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-        List<Student> stuList = new ArrayList<>(1);
-        Test test = new Test();
-        test.convert(stuList);
-//        System.out.println(stuList.get(0).getName());
-        int a = 1;
-        System.out.println(a++);
+    public static void main(String[] args){
+        String name = "中";
+        byte[] bytes = name.getBytes(CharsetUtil.UTF_8);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String toBinaryString = Integer.toBinaryString(bytes[i]);
+            String toHexString = Integer.toHexString(bytes[i] & 0xFF);
+            System.out.print(bytes[i]+" ");
+            sb.append(toHexString);
+        }
+        System.out.println(sb);
+        int i = Integer.parseInt("100000001", 2);
+//        System.out.println(i);
+//        11100100
+//        10111101
+//        10100000
+//        11100101
+//        10100101
+//        10111101
+
     }
 
     private void convert(List<Student> stuList)

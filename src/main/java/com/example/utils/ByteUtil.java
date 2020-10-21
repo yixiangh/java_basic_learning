@@ -67,6 +67,11 @@ public class ByteUtil {
         return all_byte;
     }
 
+    /**
+     * 字节转十六进制
+     * @param b
+     * @return
+     */
     public static String byteToHex(byte b) {
         String hex = Integer.toHexString(b & 0xff);
         if (hex.length() == 1){

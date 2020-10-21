@@ -1,6 +1,5 @@
 package com.example.encodedecode;
 
-import com.example.javaFile.file.CarEntity;
 import io.netty.util.CharsetUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.tomcat.util.buf.HexUtils;
@@ -33,14 +32,21 @@ public class EncryptionAndDecryption {
 
     public static void main(String[] args) {
         String msg = "马上就要中秋节了";
-        String secretKey = "01234567";//长度必须是8的倍数,即64bit长度
+        //      ==================BASE64加解密(编解码)=======================
+//        String secretKey = "01234567";//长度必须是8的倍数,即64bit长度
 //        String encode = encryptBASE64(msg.getBytes());
 //        decryBASE64(encode);
-//        encryMD5(msg);
+        //      ==================BASE64加解密(编解码)=======================
+        //      ==================MD5加密=======================
+        encryMD5(msg);
+        encrySHA1(msg);
+        //      ==================MD5加密=======================
+        //      ==================DES加密=======================
 //        byte[] encryptData = desEncrypt(Cipher.ENCRYPT_MODE, msg.getBytes(), secretKey);
 //        System.out.println("DES加密结果："+encryptData);
 //        String decryptData = DES_CBC_Decrypt(encryptData, secretKey.getBytes());
 //        System.out.println("DES解密结果："+decryptData);
+        //      ==================DES加密=======================
         System.exit(0);
     }
 
@@ -71,7 +77,7 @@ public class EncryptionAndDecryption {
     }
 
     /**
-     * MD5加密
+     * MD5加密-消息摘要算法
      * 使用不同jar包生成
      * 分别为：
      * org.apache.commons.codec.digest;
@@ -95,11 +101,29 @@ public class EncryptionAndDecryption {
             MessageDigest m=MessageDigest.getInstance("MD5");
             m.update(msg.getBytes(CharsetUtil.UTF_8));
             byte s[ ]=m.digest( );
+            System.out.println("Base64编码后："+Base64.getEncoder().encodeToString(s));
             String result="";
             for (int i=0; i<s.length;i++){
                 result+=Integer.toHexString((0x000000ff & s[i]) | 0xffffff00).substring(6);
             }
             System.out.println("MessageDigest结果:"+result);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * SHA1加密-和MD5同属于消息摘要算法
+     * 相比于MD5更加安全，SHA1会产生一个160位的消息摘要
+     * @param content
+     */
+    public static void encrySHA1(String content)
+    {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
+            byte[] digest = messageDigest.digest(content.getBytes());
+            String result = Base64.getEncoder().encodeToString(digest);
+            System.out.println("SHA1加密结果："+result);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
