@@ -1,8 +1,5 @@
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
 
 ### STS ###
 .apt_generated
@@ -14,6 +11,11 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+/.idea
+/.mvn
+/target
+.mvnw
+.mvnw.cmd
 .idea
 *.iws
 *.iml
@@ -29,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/java/com/example/netty/heartbeat/
+src/main/resources/static/
+src/main/resources/templates/
