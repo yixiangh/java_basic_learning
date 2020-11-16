@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+　　　　 scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+　　　　 debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--    <property> ：用来定义变量值，它有两个属性name和value，通过<property>定义的值会被插入到logger上下文中，可以使“${}”来使用变量。-->
+    <property name="context_log_name" value="java_basic_learning"></property>
+    <property name="log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS Z} [%thread] %-5level %logger{36}:%line - %msg%n"></property>
+    <!--    <timestamp>：获取时间戳字符串，他有两个属性key和datePattern。-->
+    <timestamp key="log_time" datePattern="yyyyMMdd'T'HHmmss"></timestamp>
+    <!-- 用来设置上下文名称，每个logger都关联到logger上下文，默认上下文名称为default。但可以使用<contextName>设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改。 -->
+    <contextName>${context_log_name}</contextName>
 
-</beans>
+    <!-- <appender>：负责写日志的组件，它有两个必要属性name和class。name指定appender名称，class指定appender的全限定名。
+    ConsoleAppender 把日志输出到控制台
+    FileAppender：把日志添加到文件
+    RollingFileAppender：滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件-->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log_pattern}</pattern>
+        </encoder>
+    </appender>
+
+<!-- 打印日志到文件 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- class = ch.qos.logback.core.rolling.TimeBasedRollingPolicy: 根据时间来分割日志文件，每天生成一个，这样可能每天的日志文件的大小不固定-->
+        <!-- class = ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy: 根据文件大小来分割，每达到maxFileSize就分割出来一个文件-->
+        <!-- class = ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy: 同时按照每天和大小来分割日志文件, 这种方式pattern中必须包含 %d 和%i。-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- <fileNamePattern>: 定义分隔的日志文件的名称规则-->
+            <FileNamePattern>./testfile.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- 制保留的归档文件的最大数量，超出数量就删除旧文件。假设设置每个月滚动，且<maxHistory>是6，则只保存最近6个月的文件，删除之前的旧文件。注意，删除旧文件是，那些为了归档而创建的目录也会被删除。-->
+            <maxHistory>30</maxHistory>
+            <!-- 指定日志文件的上限大小，例如设置51GB的话，那么到了这个值，就会删除旧的日志-->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 查看当前活动文件的大小，如果超过指定大小会告知RollingFileAppender 触发当前活动文件滚动 -->
+       <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- 活动文件的大小，默认值是10MB-->
+           <maxFileSize>10MB</maxFileSize>
+       </triggeringPolicy>
+        <encoder>
+            <pattern>${log_pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 打印过滤后的日志到文件-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+          <level>WARN</level>
+        </filter>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{30} - %msg%n</pattern>
+         </encoder>
+       </appender>
+
+    <!--  logger  用来设置某一个包或具体的某一个类的日志打印级别、以及指定<appender>
+    addtivity: 是否向上级logger传递打印信息。默认是true。可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个logger。-->
+    <logger name="com.example.controller.LogTest" additivity="false">
+        <level value="info"/>
+        <!-- <appender-ref ref="stdout"/>-->
+        <appender-ref ref="file"/>
+    </logger>
+
+    <!-- 它也是<logger>元素，但是它是根loger,是所有<loger>的上级。只有一个level属性，因为name已经被命名为"root",且已经是最上级了。
+    level: 用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL和OFF，不能设置为INHERITED或者同义词NULL。 默认是DEBUG。-->
+    <root level="info">
+        <appender-ref ref="stdout"/>
+<!--        <appender-ref ref="file"/>-->
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

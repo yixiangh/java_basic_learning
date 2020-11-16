@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.Student;
-import io.netty.util.CharsetUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,39 +10,27 @@ import java.util.*;
 
 @RestController
 @RequestMapping(value = "test1")
+@Slf4j
 public class Test {
 
     @Autowired
     private ComponentProperties componentProperties;
 
-    @RequestMapping(value = "hello")
-    public String hello()
+    public static void main(String[] args) {
+        hello();
+    }
+
+    public static void hello()
     {
-        return componentProperties.getHost()+"======="+componentProperties.getPort();
+        LogTest.logOut();
+        log.trace("test -> hello -> trace");
+        log.debug("test -> hello -> debug");
+        log.info("test -> hello -> info");
+        log.warn("test -> hello -> warn");
+        log.error("test -> hello -> error");
+//        log.fatal("test -> hello -> info");
     }
 
-
-    public static void main(String[] args){
-        String name = "中";
-        byte[] bytes = name.getBytes(CharsetUtil.UTF_8);
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            String toBinaryString = Integer.toBinaryString(bytes[i]);
-            String toHexString = Integer.toHexString(bytes[i] & 0xFF);
-            System.out.print(bytes[i]+" ");
-            sb.append(toHexString);
-        }
-        System.out.println(sb);
-        int i = Integer.parseInt("100000001", 2);
-//        System.out.println(i);
-//        11100100
-//        10111101
-//        10100000
-//        11100101
-//        10100101
-//        10111101
-
-    }
 
     private void convert(List<Student> stuList)
     {

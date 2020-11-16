@@ -1,9 +1,9 @@
-package com.example.kafka;
+package com.example.sort;
 
 import java.util.Arrays;
 
 /**
- *
+ * 堆排序（大顶堆/小顶堆）
  * @Author: HYX
  * @Date: 2020/10/28 18:37
  */

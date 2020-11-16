@@ -11,9 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumer {
 
-    @KafkaListener(topics = KafkaProducer.TOPIC)
-    public void kafkaListener(String message)
+    @KafkaListener(topics = KafkaProducer.TOPIC, groupId = "test_group_a")
+    public void kafkaListenerA(String message)
     {
-        System.out.println("kafka消费者消费到消息："+message);
+        System.out.println("kafka消费者A消费到消息："+message);
+    }
+
+    @KafkaListener(topics = KafkaProducer.TOPIC,groupId = "test_group_b")
+    public void kafkaListenerB(String message)
+    {
+        System.out.println("kafka消费者B消费到消息："+message);
     }
 }

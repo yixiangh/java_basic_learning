@@ -1,4 +1,4 @@
-package com.example.javaFile.javaIo;
+package com.example.javaIo;
 
 import java.io.*;
 

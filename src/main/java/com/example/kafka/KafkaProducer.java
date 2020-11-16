@@ -2,8 +2,12 @@ package com.example.kafka;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * kafka消息生产者
@@ -23,7 +27,10 @@ public class KafkaProducer {
     public String send(String msg)
     {
         try {
-            kafkaTemplate.send(TOPIC,msg);
+//            ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(TOPIC, msg);
+//            SendResult<String, Object> sendResult = future.get();
+//            System.out.println("sendResult:"+sendResult);
+//            kafkaTemplate.send(TOPIC,msg,new Callback)
         }catch (Exception e)
         {
             System.out.println("Kafka生产消息失败，错误信息："+e.getMessage());
