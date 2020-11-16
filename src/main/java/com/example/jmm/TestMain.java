@@ -19,7 +19,7 @@ public class TestMain {
 //        System.out.println(outNum);
 //        printMsg();
 //        mockStackOverflowError();
-        mockOutOfMemoryError();
+//        mockOutOfMemoryError();
 
     }
 
