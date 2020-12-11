@@ -19,6 +19,9 @@
         <jedis.version>2.9.1</jedis.version>
         <commons.version>3.4</commons.version>
         <lombok.version>1.18.4</lombok.version>
+        <mysql.version>8.0.12</mysql.version>
+        <mybatis.version>2.1.2</mybatis.version>
+        <swagger.version>2.7.0</swagger.version>
         <!--<pagehelper.version>1.2.10</pagehelper.version>
         <druid.version>1.1.10</druid.version>
         <fastjson.version>1.2.51</fastjson.version>
@@ -51,13 +54,26 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
+            <version>${mybatis.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.version}</version>
+        </dependency>
+
+        <!--swagger-ui-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!--  jedis-->
@@ -74,9 +90,16 @@
         </dependency>
 
         <!-- kafka -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
+        </dependency>-->
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- rabbit mq -->

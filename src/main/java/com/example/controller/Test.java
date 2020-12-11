@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping(value = "test1")
@@ -17,12 +21,34 @@ public class Test {
     private ComponentProperties componentProperties;
 
     public static void main(String[] args) {
-        hello();
+        threadTest();
+    }
+
+    public static void threadTest()
+    {
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                1,//corePoolSize
+                100,//maximumPoolSize
+                100,//keepAliveTime
+                TimeUnit.SECONDS,//unit
+                new LinkedBlockingDeque<>(2));//workQueue
+        for (int i = 0; i < 5; i++) {
+            final int taskIndex = i;
+            System.out.println(Thread.currentThread().getName()+":"+taskIndex);
+            executor.execute(()->{
+                System.out.println(Thread.currentThread().getName()+":"+taskIndex);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 
     public static void hello()
     {
-        LogTest.logOut();
+        LogTestController.logOut();
         log.trace("test -> hello -> trace");
         log.debug("test -> hello -> debug");
         log.info("test -> hello -> info");
