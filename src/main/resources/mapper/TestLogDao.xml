@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.TestLogDao">
+  <resultMap id="BaseResultMap" type="com.example.entity.TestLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="logtype" jdbcType="VARCHAR" property="logtype" />
+    <result column="logurl" jdbcType="VARCHAR" property="logurl" />
+    <result column="logip" jdbcType="VARCHAR" property="logip" />
+    <result column="logdz" jdbcType="VARCHAR" property="logdz" />
+    <result column="ladduser" jdbcType="VARCHAR" property="ladduser" />
+    <result column="lfadduser" jdbcType="VARCHAR" property="lfadduser" />
+    <result column="laddtime" jdbcType="TIMESTAMP" property="laddtime" />
+    <result column="htmlname" jdbcType="VARCHAR" property="htmlname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, logtype, logurl, logip, logdz, ladduser, lfadduser, laddtime, htmlname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from test_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert">
+    insert into test_log (logurl,logtype, logdz, logip)
+    values (#{logUrl},#{logType},#{logDz}, #{logIp})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.entity.TestLog" useGeneratedKeys="true">
+    insert into test_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logtype != null">
+        logtype,
+      </if>
+      <if test="logurl != null">
+        logurl,
+      </if>
+      <if test="logip != null">
+        logip,
+      </if>
+      <if test="logdz != null">
+        logdz,
+      </if>
+      <if test="ladduser != null">
+        ladduser,
+      </if>
+      <if test="lfadduser != null">
+        lfadduser,
+      </if>
+      <if test="laddtime != null">
+        laddtime,
+      </if>
+      <if test="htmlname != null">
+        htmlname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logtype != null">
+        #{logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="logurl != null">
+        #{logurl,jdbcType=VARCHAR},
+      </if>
+      <if test="logip != null">
+        #{logip,jdbcType=VARCHAR},
+      </if>
+      <if test="logdz != null">
+        #{logdz,jdbcType=VARCHAR},
+      </if>
+      <if test="ladduser != null">
+        #{ladduser,jdbcType=VARCHAR},
+      </if>
+      <if test="lfadduser != null">
+        #{lfadduser,jdbcType=VARCHAR},
+      </if>
+      <if test="laddtime != null">
+        #{laddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="htmlname != null">
+        #{htmlname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.entity.TestLog">
+    update test_log
+    <set>
+      <if test="logtype != null">
+        logtype = #{logtype,jdbcType=VARCHAR},
+      </if>
+      <if test="logurl != null">
+        logurl = #{logurl,jdbcType=VARCHAR},
+      </if>
+      <if test="logip != null">
+        logip = #{logip,jdbcType=VARCHAR},
+      </if>
+      <if test="logdz != null">
+        logdz = #{logdz,jdbcType=VARCHAR},
+      </if>
+      <if test="ladduser != null">
+        ladduser = #{ladduser,jdbcType=VARCHAR},
+      </if>
+      <if test="lfadduser != null">
+        lfadduser = #{lfadduser,jdbcType=VARCHAR},
+      </if>
+      <if test="laddtime != null">
+        laddtime = #{laddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="htmlname != null">
+        htmlname = #{htmlname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.entity.TestLog">
+    update test_log
+    set logtype = #{logtype,jdbcType=VARCHAR},
+      logurl = #{logurl,jdbcType=VARCHAR},
+      logip = #{logip,jdbcType=VARCHAR},
+      logdz = #{logdz,jdbcType=VARCHAR},
+      ladduser = #{ladduser,jdbcType=VARCHAR},
+      lfadduser = #{lfadduser,jdbcType=VARCHAR},
+      laddtime = #{laddtime,jdbcType=TIMESTAMP},
+      htmlname = #{htmlname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
